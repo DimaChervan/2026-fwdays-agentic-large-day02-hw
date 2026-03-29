@@ -20,7 +20,7 @@
 
 | Rule | Apply |
 |------|--------|
-| `conventions.mdc` | Functional components + hooks only; props type `{ComponentName}Props`; **named exports** only; PascalCase file `MyWidget.tsx`; kebab-case for non-component utilities; colocated `MyWidget.test.tsx`; strict TS — no unnecessary `any` / `@ts-ignore`; `import type` where appropriate. |
+| `conventions.mdc` | **New/changed** code: prefer functional components + hooks and **named exports** (avoid new `export default`). **Legacy** class/default-export patterns exist in the repo — do not rewrite unrelated files; follow the same preferences for `excalidraw-app/**` even when the rule glob is editor-only. Props: `{ComponentName}Props`; PascalCase `MyWidget.tsx`; kebab-case utilities; colocated tests when they add signal; strict TS — no unnecessary `any` / `@ts-ignore`; `import type` where appropriate. |
 | `architecture.mdc` | In `packages/excalidraw/**`: use existing state patterns (`actionManager`, etc.) — **not** Redux/Zustand/MobX; do not move canvas drawing to React DOM. |
 | `do-not-touch.mdc` | **Do not** edit listed paths unless the user explicitly requires it and accepts risk. |
 
