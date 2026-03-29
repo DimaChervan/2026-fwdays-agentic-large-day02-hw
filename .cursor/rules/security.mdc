@@ -11,6 +11,11 @@ alwaysApply: false
 - Never commit API keys, signing keys, or Firebase private material — use env / CI secrets only.
 - Do NOT log tokens, cookies, or raw `VITE_*` values.
 
+## CSP and Firebase rules
+
+- **CSP:** do not weaken Content-Security-Policy for the app; new inline scripts or broad `unsafe-*` directives need explicit review.
+- **Firestore / Storage:** Firebase security rules must follow least privilege and **deny-by-default** for sensitive reads/writes; no “open” rules for production paths.
+
 ## postMessage and JWT
 
 - Validate `event.origin` against an allowlist before trusting payloads.
@@ -42,3 +47,5 @@ alwaysApply: false
 - Search for `window.open`, redirects, or URL navigation — confirm URLs are validated / not user-controlled raw strings.
 - If crypto or encoding changed: confirm use of existing `encryption` / encode modules, not new hand-rolled crypto.
 - `package.json` diff in these areas: flag new `dependencies` that are network or crypto-related without review note in PR.
+- CSP changes: confirm no unnecessary relaxation; directives stay explicit.
+- Firebase: confirm rule changes are reviewed for least privilege / deny-by-default on sensitive collections or storage paths.

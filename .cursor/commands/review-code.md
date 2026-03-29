@@ -12,7 +12,7 @@ Perform a **code review** only. Do **not** rewrite unrelated code or apply fixes
 | Rule | When |
 |------|------|
 | `architecture.mdc` | `packages/excalidraw/**` |
-| `conventions.mdc` | `packages/**/*.ts`, `packages/**/*.tsx` |
+| `conventions.mdc` | `packages/excalidraw/**/*.ts`, `packages/excalidraw/**/*.tsx` |
 | `security.mdc` | `excalidraw-app/**`, `packages/excalidraw/data/**` |
 | `do-not-touch.mdc` | always — flag edits to listed paths without strong justification |
 | `testing.mdc` | always — tests / `yarn test:*` expectations |

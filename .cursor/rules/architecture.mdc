@@ -9,7 +9,7 @@ alwaysApply: false
 ## State Management
 
 - Custom state via actionManager — NOT Redux/Zustand/MobX
-- State updates: actionManager.dispatch() ONLY
+- State updates: actionManager.executeAction() ONLY
 - State type: AppState (packages/excalidraw/types.ts)
 
 ## Rendering
@@ -26,6 +26,6 @@ alwaysApply: false
 ## How to verify
 
 - On the diff / PR: confirm no new imports of `redux`, `zustand`, `mobx`, `react-konva`, `fabric`, `pixi.js` unless explicitly approved.
-- Grep touched files for `dispatch` usage: core editor state should go through `actionManager` patterns, not ad-hoc global stores.
+- Grep touched files for `executeAction` usage: core editor state should go through `actionManager` patterns, not ad-hoc global stores.
 - Confirm canvas drawing still flows through the scene/render pipeline (`renderScene`, canvas context) — not React DOM for the diagram surface.
 - If `package.json` or workspace deps changed: confirm new packages are justified and `packages/utils` was considered first.
