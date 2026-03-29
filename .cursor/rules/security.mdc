@@ -49,3 +49,21 @@ alwaysApply: false
 - `package.json` diff in these areas: flag new `dependencies` that are network or crypto-related without review note in PR.
 - CSP changes: confirm no unnecessary relaxation; directives stay explicit.
 - Firebase: confirm rule changes are reviewed for least privilege / deny-by-default on sensitive collections or storage paths.
+
+### Optional greps (repo root, if `rg` installed)
+
+Run from repository root; triage hits manually (may include false positives).
+
+```bash
+# Noisy: console usage in app + data layer — inspect for secrets / VITE_ / tokens
+rg -n 'console\.(log|info|debug|warn|error)' excalidraw-app packages/excalidraw/data
+
+# postMessage handlers (verify each handler checks event.origin)
+rg -n 'addEventListener.*message' excalidraw-app packages/excalidraw/data
+
+# XSS / dynamic code patterns
+rg -n 'dangerouslySetInnerHTML|innerHTML\s*=|eval\s*\(|new\s+Function\s*\(' excalidraw-app packages/excalidraw/data
+
+# Navigation / open URL
+rg -n 'window\.open|location\.href\s*=|location\.assign' excalidraw-app packages/excalidraw/data
+```

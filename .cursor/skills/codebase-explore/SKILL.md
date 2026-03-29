@@ -11,10 +11,10 @@ Triggered by: "explore", "investigate", "how does X work?"
 
 ## Steps
 
-1. Identify relevant directory/files using @folder or @codebase
-2. Read README or top-level comments in the area
+1. Identify relevant directory/files using @folder or @codebase — for this monorepo, typical roots are **`packages/excalidraw/`** (editor library), **`excalidraw-app/`** (hosted app), and **`packages/{common,element,math,utils}/`** (shared).
+2. Read `README.md` / package docs and `package.json` `scripts` in the touched package for build and entry hints.
 3. Map the key files and their responsibilities
-4. Trace data flow: entry point → processing → output
+4. Trace data flow: for user-driven editor behavior, follow **`actionManager.executeAction()`** and related actions; for drawing, follow **scene updates → `renderStaticScene` / `renderInteractiveScene` → canvas** (not React DOM for the canvas surface).
 5. Identify dependencies (imports from other packages)
 6. Document findings in a summary
 

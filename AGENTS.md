@@ -43,7 +43,7 @@ yarn fix             # Auto-fix formatting and lint
 
 ## Conventions
 
-- **React:** functional components and hooks; named exports; props type `{Name}Props` (see `.cursor/rules/conventions.mdc`)
+- **React:** for new/changed code prefer functional components + hooks and named exports; legacy class/default-export code exists — migrate when touching those files (see `.cursor/rules/conventions.mdc`)
 - **TypeScript:** strict; avoid unnecessary `any` and `@ts-ignore`
 - **Files:** PascalCase component files; kebab-case utilities; colocated `*.test.tsx` when tests add real signal
 - **Editor state:** `actionManager.executeAction()` / existing patterns — not Redux/Zustand (see `.cursor/rules/architecture.mdc`)

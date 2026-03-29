@@ -8,10 +8,10 @@ alwaysApply: false
 
 ## Components
 
-- Functional components + hooks ONLY (no class components)
-- Props interface: `{ComponentName}Props`
-- Named exports only (no default exports)
-- Colocated tests: `ComponentName.test.tsx`
+- **New and changed code:** prefer functional components + hooks; prefer **named exports** (avoid new `export default` on components).
+- **Legacy:** the repo still contains class components (e.g. core `App`) and some default exports — do not require rewriting them in unrelated PRs; migrate gradually when touching those files.
+- Props type name: `{ComponentName}Props`
+- Colocated tests: `ComponentName.test.tsx` when tests add real signal
 
 ## TypeScript
 
@@ -27,6 +27,6 @@ alwaysApply: false
 ## How to verify
 
 - Run `yarn test:typecheck` and `yarn test:code` on the branch.
-- In changed TS/TSX: no new `export default` on components; no new `class ... extends` React components.
+- In **new** or **edited** TS/TSX: prefer named exports and function components; flag **new** `export default` or **new** class components unless justified (legacy file untouched).
 - Search the diff for `@ts-ignore` and unjustified `any` — should be absent in new/edited code.
-- New components: file is PascalCase `*.tsx`; colocated `ComponentName.test.tsx` exists when behavior is non-trivial.
+- New components: PascalCase `*.tsx`; colocated tests when behavior warrants coverage.
