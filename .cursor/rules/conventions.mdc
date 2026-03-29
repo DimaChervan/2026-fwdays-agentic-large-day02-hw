@@ -1,0 +1,32 @@
+---
+description: "Code conventions for Excalidraw components and utilities"
+globs: packages/**/*.ts,packages/**/*.tsx
+alwaysApply: false
+---
+
+# Code Conventions
+
+## Components
+
+- Functional components + hooks ONLY (no class components)
+- Props interface: `{ComponentName}Props`
+- Named exports only (no default exports)
+- Colocated tests: `ComponentName.test.tsx`
+
+## TypeScript
+
+- Strict mode — no `any`, no `@ts-ignore`
+- Prefer `type` over `interface` for simple types
+- Import types: `import type { X } from "..."`
+
+## Files
+
+- kebab-case for files: `element-utils.ts`
+- PascalCase for components: `LayerUI.tsx`
+
+## How to verify
+
+- Run `yarn test:typecheck` and `yarn test:code` on the branch.
+- In changed TS/TSX: no new `export default` on components; no new `class ... extends` React components.
+- Search the diff for `@ts-ignore` and unjustified `any` — should be absent in new/edited code.
+- New components: file is PascalCase `*.tsx`; colocated `ComponentName.test.tsx` exists when behavior is non-trivial.

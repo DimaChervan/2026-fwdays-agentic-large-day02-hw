@@ -1,0 +1,17 @@
+---
+description: "Memory bank at docs/memory — update after substantive repo changes"
+alwaysApply: true
+---
+
+# Memory bank
+
+Project context lives under **`docs/memory/`**. After changes that affect architecture, tooling, product behavior, CI, versions, or current focus, **update the matching markdown in the same PR** as the code.
+
+- **Full guide**: [`AGENTS.md`](../../AGENTS.md) (section “Memory bank”).
+- **Do not** leave stale dates, package versions, or instructions that contradict the current tree.
+
+## How to verify
+
+- For PRs that change architecture, tooling, CI, versions, product behavior, or “current focus”: `git diff --name-only` should include at least one file under `docs/memory/` when [`AGENTS.md`](../../AGENTS.md) says that area is documented there — or the PR explains why no doc update is needed.
+- Spot-check “as of” / snapshot dates and version numbers in edited `docs/memory/*.md` against root `package.json` and workspace `packages/*/package.json` where relevant.
+- Follow the file → “update when” table in `AGENTS.md` to confirm the right `docs/memory/*.md` files were touched.

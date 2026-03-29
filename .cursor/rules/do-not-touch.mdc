@@ -1,0 +1,27 @@
+---
+description: "Protected files that should not be modified"
+globs: "packages/excalidraw/**"
+alwaysApply: true
+---
+
+# Protected Files
+
+NEVER modify these files without explicit approval:
+
+- `packages/excalidraw/scene/renderer.ts` — render pipeline
+- `packages/excalidraw/data/restore.ts` — file format compat
+- `packages/excalidraw/actions/manager.ts` — action system
+- `packages/excalidraw/types.ts` — core types
+
+Changes to protected files require:
+
+1. Full understanding of dependencies
+2. Running complete test suite
+3. Manual QA verification
+
+## How to verify
+
+- `git diff` / PR files: none of the four paths above should appear unless the description states **explicit approval** to edit them.
+- If a protected file is in the diff: confirm `yarn test:all` (or full test suite) was run and manual QA is documented in the PR.
+- Optional quick check from repo root:  
+  `git diff --name-only | rg '^packages/excalidraw/(scene/renderer\.ts|data/restore\.ts|actions/manager\.ts|types\.ts)$'` — should be empty for routine PRs.

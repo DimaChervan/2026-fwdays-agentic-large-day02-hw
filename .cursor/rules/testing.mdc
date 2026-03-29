@@ -1,0 +1,37 @@
+---
+description: "How to verify changes before commit — typecheck, lint, format, Vitest"
+alwaysApply: true
+---
+
+# Testing and verification
+
+## Minimum gate (before commit / PR)
+
+- `yarn test:typecheck` — TypeScript (`tsc`)
+- `yarn test:code` — ESLint, zero warnings (`--max-warnings=0`)
+- `yarn test:other` — Prettier (`yarn prettier --list-different`)
+- Vitest (`yarn test:app`): run tests relevant to the change; use `yarn test:update` (`yarn test:app --update --watch=false`) when snapshots or broad output change intentionally
+- `yarn test:all` — combined check when you need full confidence (typecheck + lint + prettier + app tests)
+
+## Scope to what changed
+
+- Prefer targeted Vitest runs (path or pattern to the touched package / `*.test.ts` / `*.test.tsx`) when the diff is localized
+- Colocate tests: `ComponentName.test.tsx` next to source (see `conventions.mdc`)
+
+## CI
+
+- PR workflows exercise lint, typecheck, coverage, and related gates — match what your branch targets before pushing
+
+## Do NOT
+
+- Weaken tests (`skip`, trivial asserts) or green the suite with `@ts-ignore` / `any`
+- Commit non-trivial edits without at least `yarn test:typecheck` and `yarn test:code`
+
+More commands: [`AGENTS.md`](../../AGENTS.md) (Development Commands).
+
+## How to verify
+
+- Run the **Minimum gate** commands above; each must exit successfully before merge (`yarn test:typecheck`, `yarn test:code`, `yarn test:other` as needed, plus relevant `yarn test:app`).
+- Confirm no new `it.skip` / `describe.skip` / `test.skip` or empty assertions introduced to silence failures (search the diff).
+- CI: PR checks on GitHub should be green for the workflows your branch targets (lint, typecheck, coverage if applicable).
+- **This rule file itself:** after editing test scripts or Vitest config, run `yarn test:all` once to confirm the documented commands still match behavior.

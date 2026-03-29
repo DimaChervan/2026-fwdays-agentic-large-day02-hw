@@ -1,0 +1,44 @@
+---
+description: "Security expectations for app shell, sync, and file/data handling"
+globs: excalidraw-app/**,packages/excalidraw/data/**
+alwaysApply: false
+---
+
+# Security
+
+## Secrets and env
+
+- Never commit API keys, signing keys, or Firebase private material — use env / CI secrets only.
+- Do NOT log tokens, cookies, or raw `VITE_*` values.
+
+## postMessage and JWT
+
+- Validate `event.origin` against an allowlist before trusting payloads.
+- Prefer specific `targetOrigin` — NOT `*` without a documented exception.
+- Verify JWT signature and claims (e.g. `exp`) before acting — fail closed.
+
+## Untrusted data
+
+- Treat imported scenes / JSON and sync payloads as untrusted — validate shape; no `eval` or dynamic execution of user-controlled strings.
+
+## XSS and navigation
+
+- Avoid `dangerouslySetInnerHTML` and raw `innerHTML` with unsanitized user-origin content.
+- Validate URLs before `window.open` or redirects — NOT open redirects or `javascript:` targets.
+
+## Crypto and storage
+
+- Use existing `encryption` / encode paths — NOT ad-hoc crypto.
+- Do NOT store long-lived secrets in `localStorage` / `sessionStorage`.
+
+## Dependencies
+
+- No new network or crypto packages in these paths without explicit review.
+
+## How to verify
+
+- Review the diff under `excalidraw-app/**` and `packages/excalidraw/data/**` for: hardcoded secrets; `console.log` of tokens/cookies/env; `postMessage` without `origin` checks; `targetOrigin: "*"`; JWT use without verify path.
+- Search changed files for `dangerouslySetInnerHTML`, `innerHTML =`, `eval(`, `new Function(` — must be justified and safe for untrusted data.
+- Search for `window.open`, redirects, or URL navigation — confirm URLs are validated / not user-controlled raw strings.
+- If crypto or encoding changed: confirm use of existing `encryption` / encode modules, not new hand-rolled crypto.
+- `package.json` diff in these areas: flag new `dependencies` that are network or crypto-related without review note in PR.

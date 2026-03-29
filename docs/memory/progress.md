@@ -1,6 +1,6 @@
 # Progress snapshot
 
-**As of: 2026-03-28** (repository tree and config files; no separate changelog consulted).
+**As of: 2026-03-29** (repository tree and config files; no separate changelog consulted).
 
 ### How to update this snapshot
 
